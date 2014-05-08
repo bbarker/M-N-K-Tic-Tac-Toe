@@ -1,0 +1,11 @@
+ 
+2*m+1 characters per row (Not including newlines)
+n characters per column 
+3x3 board:
+
+|x|x|x|
+| |?|o|
+|x|o|o|
+
+? is the cursor
+
