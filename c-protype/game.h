@@ -4,6 +4,8 @@
 #define __MNK_TIC_TAC_TOE__
 
 #include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* ** Game types ** */
 typedef char board_element;

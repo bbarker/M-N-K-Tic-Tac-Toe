@@ -1,15 +1,38 @@
 /* game.c - main game loop for MNK-Tic-tac-toe */
 
 #include <stdio.h>
-#include <stdlib.h>
 #include "game.h"
+
+bool IsMessage(void) {
+  bool message_waiting = 0;
+  // check messages here
+  if (message_waiting) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+void* GetMessage(void) {
+  void *message;
+  // code to retrieve message from queue goes here */
+  return message;
+}
+
+void ProcessMessage(void *message) {
+  //process message here
+}
+
+
+
 
 int gameLoop(int game_state, board_conf_type board_conf, 
   board_type board) {
 
 void *message;
 if (IsMessage()) {
-  message = GetMessage();
+  message = (void *) GetMessage();
   ProcessMessage(message);
 }
 

@@ -3,26 +3,6 @@
 #include <stdio.h>
 #include "game.h"
 
-bool IsMessage(void) {
-  bool message_waiting = 0;
-  // check messages here
-  if (message_waiting) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-
-void *GetMessage(void) {
-  void *message;
-  // code to retrieve message from queue goes here */
-  return message;
-}
-
-void ProcessMessage(void *message) {
-  //process message here
-}
 
 int main(int argc, char **argv) {
 
@@ -33,19 +13,19 @@ int main(int argc, char **argv) {
   //Ask user for game specification.
   printf("How many columns (three or more)?\n>>");
   board_idx m_in;
-  scanf("%u", &m_in);
+  scanf("%10hu", &m_in);
   //
   printf("How many rows (three or more)?\n>>");
   board_idx n_in;
-  scanf("%u", &n_in);
+  scanf("%10hu", &n_in);
   //
   const board_idx min_m_n = m_in < n_in ? m_in : n_in;
   const board_idx max_m_n = m_in < n_in ? n_in : m_in;
   // How to make this type safe for unsigned or signed:
   printf("How many in a row to win (from %u to %u)?\n>>",
-         min_m_n, max_m_n);
+         (unsigned) 3, max_m_n);
   board_idx k_in;
-  scanf("%u", &k_in);
+  scanf("%10hu", &k_in);
   //
   // Create board configuration.
   const board_conf_type board_conf = {m_in, n_in, k_in};
