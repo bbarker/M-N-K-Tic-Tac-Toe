@@ -19,7 +19,7 @@ typedef struct board_conf_type board_conf_type;
 //
 // main game loop 
 //
-int gameLoop(int);
+int gameLoop(int, board_conf_type, board_type);
 //
 // Print current board
 //
