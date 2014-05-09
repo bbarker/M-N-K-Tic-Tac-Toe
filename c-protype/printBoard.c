@@ -1,34 +1,38 @@
 
 #include <stdio.h>
+#include "game.h"
 
-int main(void) {
+int printBoard(board_conf_type bconf, board_type board) {
 
-typedef unsigned int board_idx;
-// To be input variables:
+// iterators for the board
+board_idx i; // row
+board_idx j; // column
+
+
 // m (cols)
-board_idx m = 3;
+const m = bconf.m;
+
 // n (rows)
-board_idx n = 3;
+const n = bconf.n;
 // board state : m x n char array
 
-char board_state[] = 
-  {'x', ' ', 'x',
-   'o', 'o', ' ',
-   ' ', ' ', ' '
-  }; 
+/* char board[] =  */
+/*   {'x', ' ', 'x', */
+/*    'o', 'o', ' ', */
+/*    ' ', ' ', ' ' */
+/*   };  */
 // cursor position
 
 //0, 0 corresponds to upper left corner
-board_idx i;
-board_idx j;
-for (i = 0; i < n; i++) {
+for (i = 0; i < n; ++i) {
   putc(' ', stdout); 
-  for (j = 0; j < m; j++) {
+  for (j = 0; j < m; ++j) {
     putc('|', stdout);
-    putc(board_state[i*m + j], stdout);
+    putc(board[i*m + j], stdout);
   }
   putc('|', stdout);
   putc('\n', stdout);
 }
 
+return 0;
 } // end of [main]
