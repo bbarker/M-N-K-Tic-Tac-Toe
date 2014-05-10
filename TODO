@@ -2,4 +2,7 @@ Check for winning condition
 Menu: AI or n-player
   For n-player, pick characters
 Scoring
+ - For this, we can track the prior
+   score and look at the cross grid
+   around the updated element only.
 AI

@@ -14,8 +14,8 @@ const m = bconf.m;
 
 // n (rows)
 const n = bconf.n;
-// board state : m x n char array
 
+// example:
 /* char board[] =  */
 /*   {'x', ' ', 'x', */
 /*    'o', 'o', ' ', */
@@ -35,4 +35,4 @@ for (i = 0; i < n; ++i) {
 }
 
 return 0;
-} // end of [main]
+} // end of [printBoard]

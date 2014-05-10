@@ -17,6 +17,12 @@ struct board_conf_type {
 };
 typedef struct board_conf_type board_conf_type;
 
+
+struct board_point {
+  board_idx x, y;
+};
+typedef struct board_point board_point;
+
 /* ** Game functions ** */
 //
 // main game loop 
@@ -26,7 +32,11 @@ int gameLoop(int, board_conf_type, board_type);
 // Print current board
 //
 int printBoard(board_conf_type, board_type);
-
+//
+// Check to see if there is a winner.
+//
+int checkWinner(board_conf_type bconf, board_type board, 
+  board_point origin);
 #define INIT     0
 #define INTRO    1
 #define MENU     2
