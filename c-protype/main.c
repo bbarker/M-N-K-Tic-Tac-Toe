@@ -7,7 +7,7 @@
 int main(int argc, char **argv) {
 
   // print title
-  fprintf(stdout, "M-N-K-Tic-tac-toe\n");
+  fprintf(GAME_TXT_BUF, "M-N-K-Tic-tac-toe\n");
 
 
   //Ask user for game specification.
@@ -27,7 +27,10 @@ int main(int argc, char **argv) {
   board_idx k_in;
   scanf("%10hu", &k_in);
   // Create board configuration.
-  board_point cursor_init = {(ceil((float) m_in / 2.0), (ceil((float) n_in / 2.0))};
+  board_point cursor_init =  {
+   ceilf(((float) (m_in - 1)) / 2.0), 
+   ceilf(((float) (n_in - 1)) / 2.0)
+  };
   //
   board_conf_type board_conf = {m_in, n_in, k_in, cursor_init};
 
