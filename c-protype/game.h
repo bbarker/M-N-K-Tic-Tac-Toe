@@ -57,7 +57,7 @@ int printBoard(board_conf_type, board_type);
 //
 // Check to see if there is a winner.
 //
-int checkWinner(board_conf_type board_conf, board_type board);
+bool checkWinner(board_conf_type board_conf, board_type board);
 
 #endif
 

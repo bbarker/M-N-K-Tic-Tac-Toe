@@ -34,7 +34,7 @@ return lineSum;
 } // end of [countInDirection]
 
 
-int checkWinner(board_conf_type board_conf, board_type board) {
+bool checkWinner(board_conf_type board_conf, board_type board) {
 
 //Need to check both diagonals and both cardinal axes
 
@@ -59,7 +59,6 @@ lineSums[2] = 1 + countInDirection(board_conf, board, 0, -1);
 //Down:
 lineSums[2] += countInDirection(board_conf, board, 0, 1);
 
-
 //Right:
 lineSums[3] = 1 + countInDirection(board_conf, board, 1, 0);
 //Left:
@@ -73,5 +72,9 @@ for (i = 0; i < NUM_SCORE_LINES; ++i) {
     { lineSumMax = lineSums[i]; }
 } // end of [for]
 
-return lineSumMax;
+if (lineSumMax >= board_conf.k) {
+  return true;
+} else {
+  return false;
+}
 } // end of [checkWinner]

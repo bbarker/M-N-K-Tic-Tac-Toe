@@ -27,16 +27,11 @@ int main(int argc, char **argv) {
   board_idx k_in;
   scanf("%10hu", &k_in);
   // Create board configuration.
-  board_point cursor_init =  {
-   .x = ceilf(((float) (m_in - 1)) / 2.0), 
-   .y = ceilf(((float) (n_in - 1)) / 2.0)
-  };
   //
   board_conf_type board_conf = {
     .m = m_in, 
     .n = n_in, 
     .k = k_in, 
-    .cursor = cursor_init
   };
 
   // Create a blank board
@@ -48,8 +43,6 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Unable to allocate memory for board!");
     return -1;
   }
-  memset(board, (int)(unsigned char) ' ', board_bytes);
-
 
   // Execute main game loop.
   gameLoop(INIT, board_conf, board);
