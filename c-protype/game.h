@@ -12,16 +12,18 @@ typedef char board_element;
 typedef board_element* board_type;
 typedef unsigned short int board_idx;
 //
-struct board_conf_type {
-  board_element m, n, k;
-};
-typedef struct board_conf_type board_conf_type;
-
-
 struct board_point {
   board_idx x, y;
 };
 typedef struct board_point board_point;
+//
+struct board_conf_type {
+  board_idx m, n, k;
+  board_point cursor;
+};
+typedef struct board_conf_type board_conf_type;
+
+
 
 /* ** Game functions ** */
 //

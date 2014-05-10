@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include <game.h>
+#include "game.h"
 
 
 /* 
@@ -12,7 +12,7 @@
 int countInDirection(board_conf_type bconf, board_type board, 
   int xStep, int yStep, board_point origin) {
 board_idx lineSum = 0;
-originChar = board[origin.y * bconf.m + origin.x];
+char originChar = board[origin.y * bconf.m + origin.x];
 
 
 
