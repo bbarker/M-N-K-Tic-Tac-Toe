@@ -28,11 +28,16 @@ int main(int argc, char **argv) {
   scanf("%10hu", &k_in);
   // Create board configuration.
   board_point cursor_init =  {
-   ceilf(((float) (m_in - 1)) / 2.0), 
-   ceilf(((float) (n_in - 1)) / 2.0)
+   .x = ceilf(((float) (m_in - 1)) / 2.0), 
+   .y = ceilf(((float) (n_in - 1)) / 2.0)
   };
   //
-  board_conf_type board_conf = {m_in, n_in, k_in, cursor_init};
+  board_conf_type board_conf = {
+    .m = m_in, 
+    .n = n_in, 
+    .k = k_in, 
+    .cursor = cursor_init
+  };
 
   // Create a blank board
   board_type board = NULL;
