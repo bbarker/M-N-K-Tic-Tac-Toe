@@ -26,9 +26,10 @@ int main(int argc, char **argv) {
          (unsigned) 3, max_m_n);
   board_idx k_in;
   scanf("%10hu", &k_in);
-  //
   // Create board configuration.
-  const board_conf_type board_conf = {m_in, n_in, k_in};
+  board_point cursor_init = {(ceil((float) m_in / 2.0), (ceil((float) n_in / 2.0))};
+  //
+  board_conf_type board_conf = {m_in, n_in, k_in, cursor_init};
 
   // Create a blank board
   board_type board = NULL;
