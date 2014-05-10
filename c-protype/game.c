@@ -37,7 +37,7 @@ if (IsMessage()) {
 }
 
 size_t board_bytes;
-char decision;
+char last_key;
 switch(game_state) {
 case INIT:
   board_bytes = board_conf.m * board_conf.n * sizeof(board_element);
@@ -56,12 +56,12 @@ case INTRO:
   return gameLoop(game_state, board_conf, board);
 case MENU:
   //Flush buffer:
-  while((decision = getchar()) != '\n' && decision != EOF) {}
+  while((last_key = getchar()) != '\n' && last_key != EOF) {}
   fprintf(GAME_TXT_BUF, "Play again? [y/n]>>");
-  decision = (char) tolower(getc(stdin));
-  if (decision == 'y') {
+  last_key = (char) tolower(getc(stdin));
+  if (last_key == 'y') {
     game_state = INIT;
-  } else if (decision == 'n') {
+  } else if (last_key == 'n') {
     game_state = SHUTDOWN;
   } else {
     fprintf(GAME_TXT_BUF, "Invalid choice, please try again.");
@@ -74,12 +74,30 @@ case GAME:
 
   //
   // I/O here
-  //
+  while((last_key = getchar()) != '\n' && last_key != EOF) {}
+  last_key = (char) tolower(getc(stdin));
+  switch(last_key) {
+  case 'w':
+    printf("doubleyou!");
+    board_conf.cursor.y -= 1;
+  case 'a':
+    printf("ayeee!");
+    board_conf.cursor.x -= 1;
+  case 's':
+    board_conf.cursor.y += 1;
+  case 'd':
+    board_conf.cursor.x += 1;
+  } // end of [switch(last_key)]
 
-  if (checkWinner(board_conf, board)) {
-    game_state = MENU;
-  };
-  
+  printBoard(board_conf, board);
+
+  last_key = (char) tolower(getc(stdin));
+  if (last_key == 'T') {
+     board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 'X';
+     if (checkWinner(board_conf, board)) {
+       game_state = MENU;
+     } // end of [if (checkWinner//]
+  } // end of [if (last_key//]
 
   return gameLoop(game_state, board_conf, board);
 case SHUTDOWN:
