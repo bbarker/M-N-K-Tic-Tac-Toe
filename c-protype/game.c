@@ -75,13 +75,11 @@ case GAME:
   last_key = tolower(pauseAndGetChar(GAMETEXT_OUT_BUF, stdin));
   switch(last_key) {
   case 'w':
-    printf("doubleyou!\n");
     if (board_conf.cursor.y > 0) {
       board_conf.cursor.y -= 1;
     }
     break;
   case 'a':
-    printf("ayeee!\n");
     if (board_conf.cursor.x > 0) {
       board_conf.cursor.x -= 1;
     }
