@@ -7,9 +7,9 @@
 int main(int argc, char **argv) {
 
   // print title
-  fprintf(GAME_TXT_BUF, "Welcome to M-N-K-Tic-tac-toe\n\n" 
-    "Please use the W-A-S-D keys to move the cursor.\n"
-    "To mark a square, press the 'T' key.");
+  fprintf(GAMETEXT_OUT_BUF, "Welcome to M-N-K-Tic-tac-toe\n\n" 
+    "Please use the W-A-S-D keys (followed by ENTER) to move the cursor.\n"
+    "To mark a square, press the 'T' key (followed by ENTER).\n\n");
   
 
   //Ask user for game specification.

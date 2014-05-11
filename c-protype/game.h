@@ -3,6 +3,7 @@
 #ifndef __MNK_TIC_TAC_TOE__
 #define __MNK_TIC_TAC_TOE__
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,8 +25,11 @@
 
 
 // Other game definitions
-#define GAME_TXT_BUF    stdout
+#define GAMETEXT_OUT_BUF    stdout
 #define NUM_SCORE_LINES 4
+
+// Error values
+#define UNKNOWN_ERROR -100
 
 /* ** Game types ** */
 typedef char board_element;
@@ -57,9 +61,24 @@ int printBoard(board_conf_type, board_type);
 //
 // Check to see if there is a winner.
 //
-bool checkWinner(board_conf_type board_conf, board_type board);
+bool isWinner(board_conf_type board_conf, board_type board);
 
 #endif
+
+
+
+
+/* ** Utility functions ** */
+//
+// Input buffer flush using only 
+// C-standard functions.
+//
+char inputFlush(FILE* input_buffer);
+//
+//
+//
+char pauseAndGetChar(FILE* output_buffer, FILE* input_buffer);
+
 
 
 /* ** End of [game.h] ** */

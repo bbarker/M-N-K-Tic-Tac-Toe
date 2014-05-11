@@ -34,7 +34,7 @@ return lineSum;
 } // end of [countInDirection]
 
 
-bool checkWinner(board_conf_type board_conf, board_type board) {
+bool isWinner(board_conf_type board_conf, board_type board) {
 
 //Need to check both diagonals and both cardinal axes
 

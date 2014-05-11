@@ -26,20 +26,20 @@ const n = board_conf.n;
 //0, 0 corresponds to upper left corner
 
 for (i = 0; i < n; ++i) {
-  putc(TILE_EMPTY, GAME_TXT_BUF); 
+  putc(TILE_EMPTY, GAMETEXT_OUT_BUF); 
   for (j = 0; j < m; ++j) {
-    putc(BORDER_VERTICAL, GAME_TXT_BUF);
-    if (!(i == board_conf.cursor.x && j == board_conf.cursor.y)) {
-      putc(board[i*m + j], GAME_TXT_BUF);
+    putc(BORDER_VERTICAL, GAMETEXT_OUT_BUF);
+    if (!(j == board_conf.cursor.x && i == board_conf.cursor.y)) {
+      putc(board[i*m + j], GAMETEXT_OUT_BUF);
 
     } else if (board[i*m + j] == TILE_EMPTY) {
-      putc(CURSOR_ON_EMPTY, GAME_TXT_BUF);
+      putc(CURSOR_ON_EMPTY, GAMETEXT_OUT_BUF);
     } else {
-      putc(CURSOR_ON_TAKEN, GAME_TXT_BUF);
+      putc(CURSOR_ON_TAKEN, GAMETEXT_OUT_BUF);
     } // end of [if (board_conf//]
   }
-  putc(BORDER_VERTICAL, GAME_TXT_BUF);
-  putc(ENDROW, GAME_TXT_BUF);
+  putc(BORDER_VERTICAL, GAMETEXT_OUT_BUF);
+  putc(ENDROW, GAMETEXT_OUT_BUF);
 }
 
 return 0;

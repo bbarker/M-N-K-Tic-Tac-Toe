@@ -57,54 +57,66 @@ case INTRO:
 case MENU:
   //Flush buffer:
   while((last_key = getchar()) != '\n' && last_key != EOF) {}
-  fprintf(GAME_TXT_BUF, "Play again? [y/n]>>");
+  fprintf(GAMETEXT_OUT_BUF, "Play again? [y/n]>>");
   last_key = (char) tolower(getc(stdin));
   if (last_key == 'y') {
     game_state = INIT;
   } else if (last_key == 'n') {
     game_state = SHUTDOWN;
   } else {
-    fprintf(GAME_TXT_BUF, "Invalid choice, please try again.");
+    fprintf(GAMETEXT_OUT_BUF, "Invalid choice, please try again.");
   }
-
+  
   return gameLoop(game_state, board_conf, board);
 case GAME:
-
   printBoard(board_conf, board);
-
   //
-  // I/O here
-  while((last_key = getchar()) != '\n' && last_key != EOF) {}
-  last_key = (char) tolower(getc(stdin));
+  inputFlush(stdin);
+  last_key = tolower(pauseAndGetChar(GAMETEXT_OUT_BUF, stdin));
   switch(last_key) {
   case 'w':
-    printf("doubleyou!");
-    board_conf.cursor.y -= 1;
+    printf("doubleyou!\n");
+    if (board_conf.cursor.y > 0) {
+      board_conf.cursor.y -= 1;
+    }
+    break;
   case 'a':
-    printf("ayeee!");
-    board_conf.cursor.x -= 1;
+    printf("ayeee!\n");
+    if (board_conf.cursor.x > 0) {
+      board_conf.cursor.x -= 1;
+    }
+    break;
   case 's':
-    board_conf.cursor.y += 1;
+    if (board_conf.cursor.y < board_conf.n - 1) {
+      board_conf.cursor.y += 1;
+    }
+    break;
   case 'd':
-    board_conf.cursor.x += 1;
+    if (board_conf.cursor.x < board_conf.m - 1) {
+      board_conf.cursor.x += 1;
+    }
+    break;
+  case 't':
+    board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 'X';
+    if (isWinner(board_conf, board)) {
+      board_conf.cursor.x = -1;
+      board_conf.cursor.y = -1;
+      printBoard(board_conf, board);
+      game_state = MENU;
+    } // end of [if (isWinner//]
+    break;
+  default:
+    fprintf(GAMETEXT_OUT_BUF, "Erroneous input: %c\n", last_key);
   } // end of [switch(last_key)]
 
-  printBoard(board_conf, board);
-
-  last_key = (char) tolower(getc(stdin));
-  if (last_key == 'T') {
-     board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 'X';
-     if (checkWinner(board_conf, board)) {
-       game_state = MENU;
-     } // end of [if (checkWinner//]
-  } // end of [if (last_key//]
-
+  printf("cursor is now at (%hu, %hu); last_key is %c\n", 
+         board_conf.cursor.x, board_conf.cursor.y, last_key);
   return gameLoop(game_state, board_conf, board);
 case SHUTDOWN:
   free(board);  
   return 0;
 default:
   fprintf(stderr, "Invalid game state!");
-  return -1;
+  return UNKNOWN_ERROR;
 } // End of [switch(game_state)]
 } // End of [gameLoop]
