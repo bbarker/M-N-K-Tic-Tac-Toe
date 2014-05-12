@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <math.h>
 
 #define INIT     0
@@ -38,6 +39,7 @@
 
 // Error values
 #define UNKNOWN_ERROR -100
+
 
 /* ** Game types ** */
 typedef char board_element;

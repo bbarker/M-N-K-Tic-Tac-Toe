@@ -2,60 +2,29 @@
 #include <stdio.h>
 #include "game.h"
 
+#define PI 3.14159265
 
+/* ** ** local function declarations ** ** */
+int countInDirection(board_conf_type board_conf, board_type board, 
+  direction scoring_direction);
+/* ** end local function declarations ** */
 
 
 bool isWinner(board_conf_type board_conf, board_type board) {
-unsigned short lineSums[NUM_SCORE_LINES]; 
+unsigned short lineSums[NUM_SCORE_LINES] = {1, 1, 1, 1}; 
 
 // Need to check both diagonals and both cardinal axes
-// Might be good to add these to for loop below later:
 
 direction scoring_direction;
 
-/* //Right and Up: */
-/* scoring_direction.dx = 1; */
-/* scoring_direction.dy = -1; */
-/* lineSums[0] = 1 + countInDirection(board_conf, board, scoring_direction); */
-/* //Left and Down: */
-/* scoring_direction.dx = -1, 1}; */
-/* lineSums[0] += countInDirection(board_conf, board, scoring_direction); */
-
-/* //Right and Down: */
-/* scoring_direction = {1, 1}; */
-/* lineSums[1] = 1 + countInDirection(board_conf, board, scoring_direction); */
-/* //Left and Up: */
-/* scoring_direction = {-1, -1}; */
-/* lineSums[1] += countInDirection(board_conf, board, scoring_direction); */
-
-/* //Up: */
-/* scoring_direction = {0, -1}; */
-/* lineSums[2] = 1 + countInDirection(board_conf, board, scoring_direction); */
-/* //Down: */
-/* scoring_direction = {0, 1}; */
-/* lineSums[2] += countInDirection(board_conf, board, scoring_direction); */
-
-/* //Right: */
-/* scoring_direction = {1, 0}; */
-/* lineSums[3] = 1 + countInDirection(board_conf, board, scoring_direction); */
-/* //Left: */
-/* scoring_direction = {-1, 0}; */
-/* lineSums[3] += countInDirection(board_conf, board, scoring_direction); */
-
-
-
-
+{int line;
 //Iterate over all directions:
-for (int i = -1; i <= 1; ++i) {
-  for (int j = -1; j <= 1; ++i) {
-    if (i != 0 || j != 0) {
-      scoring_direction.dx = i;
-      scoring_direction.dy = j;
-
-
-    }
-  } // end of [for (int j//]
-} // end of [for (int i//]
+for (int i = 0; i < 8; i++) {
+  line = i % 4;
+  scoring_direction.dx = (int)      nearbyint(cos(i*PI / 4.0));
+  scoring_direction.dy = (int) -1 * nearbyint(sin(i*PI / 4.0));
+  lineSums[line] += countInDirection(board_conf, board, scoring_direction);
+}}
 
 
 unsigned short lineSumMax = 1;
@@ -72,12 +41,6 @@ if (lineSumMax >= board_conf.k) {
 } // end of [checkWinner]
 
 
-unsigned short mapDirectionToLine(direction scoring_direction) {
-int 
-// x + x*y + (x-y) // x-y doesn't work for first directions
-// best to just use condtionals
-
-}
 /* 
   Helper function for [checkWinner]. 
   Counts contiguous elements of the same type as origin in

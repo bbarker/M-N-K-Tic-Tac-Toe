@@ -10,10 +10,10 @@ board_idx j; // column
 
 
 // m (cols)
-const m = board_conf.m;
+const board_idx m = board_conf.m;
 
 // n (rows)
-const n = board_conf.n;
+const board_idx n = board_conf.n;
 
 // example:
 /* char board[] =  */
