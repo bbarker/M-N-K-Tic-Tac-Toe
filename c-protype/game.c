@@ -25,8 +25,6 @@ void ProcessMessage(void *message) {
 }
 
 
-
-
 int gameLoop(int game_state, board_conf_type board_conf, 
   board_type board) {
 
@@ -69,6 +67,8 @@ case MENU:
 case GAME:
   printBoard(board_conf, board);
   //
+  fprintf(GAMETEXT_OUT_BUF, "Player %c's turn>>", 
+    PLAYER_SYMBOLS[board_conf.player_turn]); 
   last_key = tolower(flushAndGetChar(KEY_BUFFER));
   switch(last_key) {
   case KEY_UP:
@@ -92,13 +92,18 @@ case GAME:
     }
     break;
   case KEY_MARK:
-    board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 'X';
+    board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 
+      PLAYER_SYMBOLS[board_conf.player_turn];
     if (isWinner(board_conf, board)) {
       board_conf.cursor.x = -1;
       board_conf.cursor.y = -1;
       printBoard(board_conf, board);
+      fprintf(GAMETEXT_OUT_BUF, "Player %c wins!!!\n\n", 
+        PLAYER_SYMBOLS[board_conf.player_turn]);
       game_state = MENU;
     } // end of [if (isWinner//]
+    board_conf.player_turn = 
+      (board_conf.player_turn + 1) % board_conf.num_players;
     break;
   default:
     fprintf(GAMETEXT_OUT_BUF, "Erroneous input: %c\n", last_key);

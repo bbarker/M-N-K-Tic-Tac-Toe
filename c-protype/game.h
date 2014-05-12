@@ -23,6 +23,9 @@
 #define TILE_EMPTY      ' '
 #define BORDER_VERTICAL '|'
 #define ENDROW          '\n'
+//
+#define PLAYER_SYMBOLS  "XO+@"
+#define PLAYER_MAX      4
 
 
 // Controls
@@ -59,6 +62,8 @@ typedef struct board_point board_point;
 struct board_conf_type {
   const board_idx m, n, k;
   board_point cursor;
+  const int num_players;
+  int player_turn;
 };
 typedef struct board_conf_type board_conf_type;
 

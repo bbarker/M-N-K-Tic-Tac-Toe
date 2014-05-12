@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   printf("How many rows (three or more)?\n>>");
   board_idx n_in;
   scanf("%10hu", &n_in);
-  //
+
   const board_idx min_m_n = m_in < n_in ? m_in : n_in;
   const board_idx max_m_n = m_in < n_in ? n_in : m_in;
   // How to make this type safe for unsigned or signed:
@@ -28,12 +28,19 @@ int main(int argc, char **argv) {
          (unsigned) 3, max_m_n);
   board_idx k_in;
   scanf("%10hu", &k_in);
+  //
+  printf("How many players (up to %d)?\n>>", PLAYER_MAX);
+  board_idx num_players_in;
+  scanf("%10hu", &num_players_in);
+
   // Create board configuration.
   //
   board_conf_type board_conf = {
     .m = m_in, 
     .n = n_in, 
-    .k = k_in, 
+    .k = k_in,
+    .num_players = num_players_in,
+    .player_turn = 0 
   };
 
   // Create a blank board
