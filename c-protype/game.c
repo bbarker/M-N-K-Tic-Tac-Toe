@@ -21,7 +21,7 @@ void* GetMessage(void) {
 }
 
 void ProcessMessage(void *message) {
-  //process message here
+  // process message here
 }
 
 
@@ -55,10 +55,8 @@ case INTRO:
 
   return gameLoop(game_state, board_conf, board);
 case MENU:
-  //Flush buffer:
-  while((last_key = getchar()) != '\n' && last_key != EOF) {}
   fprintf(GAMETEXT_OUT_BUF, "Play again? [y/n]>>");
-  last_key = (char) tolower(getc(stdin));
+  last_key = tolower(flushAndGetChar(stdin));
   if (last_key == 'y') {
     game_state = INIT;
   } else if (last_key == 'n') {
@@ -71,30 +69,29 @@ case MENU:
 case GAME:
   printBoard(board_conf, board);
   //
-  inputFlush(stdin);
-  last_key = tolower(pauseAndGetChar(GAMETEXT_OUT_BUF, stdin));
+  last_key = tolower(flushAndGetChar(KEY_BUFFER));
   switch(last_key) {
-  case 'w':
+  case KEY_UP:
     if (board_conf.cursor.y > 0) {
       board_conf.cursor.y -= 1;
     }
     break;
-  case 'a':
+  case KEY_LEFT:
     if (board_conf.cursor.x > 0) {
       board_conf.cursor.x -= 1;
     }
     break;
-  case 's':
+  case KEY_DOWN:
     if (board_conf.cursor.y < board_conf.n - 1) {
       board_conf.cursor.y += 1;
     }
     break;
-  case 'd':
+  case KEY_RIGHT:
     if (board_conf.cursor.x < board_conf.m - 1) {
       board_conf.cursor.x += 1;
     }
     break;
-  case 't':
+  case KEY_MARK:
     board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x] = 'X';
     if (isWinner(board_conf, board)) {
       board_conf.cursor.x = -1;
@@ -106,9 +103,6 @@ case GAME:
   default:
     fprintf(GAMETEXT_OUT_BUF, "Erroneous input: %c\n", last_key);
   } // end of [switch(last_key)]
-
-  printf("cursor is now at (%hu, %hu); last_key is %c\n", 
-         board_conf.cursor.x, board_conf.cursor.y, last_key);
   return gameLoop(game_state, board_conf, board);
 case SHUTDOWN:
   free(board);  

@@ -36,3 +36,11 @@ char pauseAndGetChar(FILE *output_buffer, FILE* input_buffer)
   fflush (output_buffer);
   return getc(input_buffer);
 } 
+
+char flushAndGetChar(FILE* input_buffer)
+{
+  char singleChar;
+  inputFlush(input_buffer);
+  singleChar = pauseAndGetChar(GAMETEXT_OUT_BUF, input_buffer);
+  return singleChar;
+}

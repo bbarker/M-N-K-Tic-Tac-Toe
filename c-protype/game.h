@@ -24,6 +24,14 @@
 #define ENDROW          '\n'
 
 
+// Controls
+#define KEY_BUFFER stdin
+#define KEY_UP     'w'
+#define KEY_DOWN   's'
+#define KEY_LEFT   'a'
+#define KEY_RIGHT  'd'
+#define KEY_MARK   't'
+
 // Other game definitions
 #define GAMETEXT_OUT_BUF    stdout
 #define NUM_SCORE_LINES 4
@@ -35,6 +43,11 @@
 typedef char board_element;
 typedef board_element* board_type;
 typedef unsigned short int board_idx;
+//
+struct direction {
+  int dx, dy;
+};
+typedef struct direction direction;
 //
 struct board_point {
   board_idx x, y;
@@ -70,14 +83,10 @@ bool isWinner(board_conf_type board_conf, board_type board);
 
 /* ** Utility functions ** */
 //
-// Input buffer flush using only 
-// C-standard functions.
+// Input buffer flush and get character using 
+// only C-standard functions.
 //
-char inputFlush(FILE* input_buffer);
-//
-//
-//
-char pauseAndGetChar(FILE* output_buffer, FILE* input_buffer);
+char flushAndGetChar(FILE* input_buffer);
 
 
 
