@@ -77,16 +77,11 @@ int gameLoop(int, board_conf_type, board_type);
 //
 // Print current board
 //
-int printBoard(board_conf_type, board_type);
+void printBoard(board_conf_type, board_type);
 //
 // Check to see if there is a winner.
 //
 bool isWinner(board_conf_type board_conf, board_type board);
-
-#endif
-
-
-
 
 /* ** Utility functions ** */
 //
@@ -96,5 +91,5 @@ bool isWinner(board_conf_type board_conf, board_type board);
 char flushAndGetChar(FILE* input_buffer);
 
 
-
+#endif
 /* ** End of [game.h] ** */

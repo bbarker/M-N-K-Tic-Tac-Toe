@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "game.h"
 
-int printBoard(board_conf_type board_conf, board_type board) {
+void printBoard(board_conf_type board_conf, board_type board) {
 
 // iterators for the board
 board_idx i; // row
@@ -41,6 +41,4 @@ for (i = 0; i < n; ++i) {
   putc(BORDER_VERTICAL, GAMETEXT_OUT_BUF);
   putc(ENDROW, GAMETEXT_OUT_BUF);
 }
-
-return 0;
 } // end of [printBoard]
