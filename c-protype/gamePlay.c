@@ -52,7 +52,8 @@ const int dy = scoring_direction.dy;
 //
 board_element elementAtCursor = 
   board[board_conf.cursor.y * board_conf.m + board_conf.cursor.x];
-board_element xPos = board_conf.cursor.x, yPos = board_conf.cursor.y;
+board_idx xPos = board_conf.cursor.x;
+board_idx yPos = board_conf.cursor.y;
 unsigned short lineSum = 0;
 while (isInBounds(board_conf, xPos + dx, yPos + dy)) {
   xPos = xPos + dx;
