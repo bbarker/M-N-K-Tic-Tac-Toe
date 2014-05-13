@@ -1,0 +1,12 @@
+ATS has better abstraction mechanisms than C, which allows us to pass
+fewer function arguments around. An example is that I've taken the 
+main initialization code from main.c and put it in its own function, which it shares
+with other game. While this in principle allows us to find a sweet spot between
+global variables and pure-functional programming, I found that my variables essentially
+ended up being global (but at least this can be easily controlled for the specific application).
+
+However, having variables that are visible to several functions always comes at the tradeoff
+of a function becoming stateful, so I wonder where to draw the line. I think in our particular
+case (game programming), it is clear that we are modeling a complex object that is very IO dependent, 
+and it is hard to think of complex objects as lacking a state; the same is probably just as true
+for other types of systems programming.

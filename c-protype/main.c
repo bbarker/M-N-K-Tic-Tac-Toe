@@ -13,11 +13,11 @@ int main(int argc, char **argv) {
   
 
   //Ask user for game specification.
-  printf("How many columns (three or more)?\n>>");
+  fprintf(GAMETEXT_OUT_BUF, "How many columns (three or more)?\n>>");
   board_idx m_in;
   scanf("%10hu", &m_in);
   //
-  printf("How many rows (three or more)?\n>>");
+  fprintf(GAMETEXT_OUT_BUF, "How many rows (three or more)?\n>>");
   board_idx n_in;
   scanf("%10hu", &n_in);
 

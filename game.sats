@@ -38,41 +38,37 @@
 
 typedef board_element = char
 
-typedef board_type =
-  [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn)
+abst@ype board_abstype = ptr
+typedef board_type = board_abstype
+(* typedef board_type = *)
+(*   [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn) *)
+
 
 typedef board_idx = int //unsigned short int
 
 (* ****** ****** *)
 
-typedef direction = 
-@{
-, dx = int
-, dy = int
-}
+abst@ype direction_abstype = ptr
+typedef direction = direction_abstype
 
 (* ****** ****** *)
 
-typedef board_point = 
-@{
-, x = board_idx
-, y = board_idx
-}
+abst@ype board_point_abstype = ptr
+typedef board_point = board_point_abstype
 
 (* ****** ****** *)
 
-typedef board_conf_type =
-@{
-, m = board_idx
-, n = board_idx
-, k = board_idx
-, cursor = board_point
-, num_players = int
-, player_turn = int
-}
+abst@ype board_conf_abstype = ptr
+typedef board_conf_type = board_conf_abstype
+
+(* ****** ****** *)
 
 
 (* ** Game functions ** *)
+//
+// Initialize the game board and state.
+//
+fun gameSetup (): void
 //
 // main game loop 
 //
