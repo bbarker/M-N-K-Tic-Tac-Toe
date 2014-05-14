@@ -56,11 +56,8 @@ assume board_conf_abstype = board_conf_simple
 
 local
 
-(* var pos: pos_struct *)
-(* val () = pos.pos_ntot := 0 *)
-(* val () = pos.pos_nrow := 0 *)
-(* val () = pos.pos_ncol := 0 *)
-(* val posref = ref_make_viewptr{pos_struct}(view@pos | addr@pos) *)
+var board: board_type
+var board_conf: board_conf_type
 
 in (*in-of-local*)
 
@@ -68,7 +65,7 @@ in (*in-of-local*)
 
 
 implement
-gameSetup():void = {
+gameSetup():void (* maybe return the initialized vars? *) = {
 val () = fprint(GAMETEXT_OUT_BUF,
 
 "Welcome to M-N-K-Tic-tac-toe\n\n
@@ -93,9 +90,19 @@ val k_in = char2i(flushAndGetChar(stdin_ref))
  
 val () = $extfcall(void, "fprint", GAMETEXT_OUT_BUF, 
   "How many players (up to %d)?\n>>", PLAYER_MAX) 
-val num_players_in = flushAndGetChar(stdin_ref)
+val num_players_in = char2i(flushAndGetChar(stdin_ref))
+
+// assign reasonable defaults
+val () = board_conf.m := m_in
+val () = board_conf.n := n_in
+val () = board_conf.k := k_in
+val () = board_conf.cursor := @{x = 0, y = 0}
+val () = board_conf.num_players := num_players_in
+val () = board_conf.player_turn := 0
 
 } (* end of [gameSetup] *)
+
+
 
 end // end of [local]
 

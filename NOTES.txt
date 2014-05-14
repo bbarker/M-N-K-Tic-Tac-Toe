@@ -1,12 +1,41 @@
 ATS has better abstraction mechanisms than C, which allows us to pass
-fewer function arguments around. An example is that I've taken the 
-main initialization code from main.c and put it in its own function, which it shares
-with other game. While this in principle allows us to find a sweet spot between
-global variables and pure-functional programming, I found that my variables essentially
-ended up being global (but at least this can be easily controlled for the specific application).
+fewer function arguments around. An example is that I've taken the
+main initialization code from main.c and put it in its own function,
+which it shares with other game. While this in principle allows us to
+find a sweet spot between global variables and pure-functional
+programming, I found that my variables essentially ended up being
+global (but at least this can be easily controlled for the specific
+application).
 
-However, having variables that are visible to several functions always comes at the tradeoff
-of a function becoming stateful, so I wonder where to draw the line. I think in our particular
-case (game programming), it is clear that we are modeling a complex object that is very IO dependent, 
-and it is hard to think of complex objects as lacking a state; the same is probably just as true
-for other types of systems programming.
+However, having variables that are visible to several functions always
+comes at the tradeoff of a function becoming stateful, so I wonder
+where to draw the line. I think in our particular case (game
+programming), it is clear that we are modeling a complex object that
+is very IO dependent, and it is hard to think of complex objects as
+lacking a state; the same is probably just as true for other types of
+systems programming.
+
+It may be the case that as it stands the code is slightly overly
+abstracted in most places, but I did this as practice and also to
+possibly see how the abstraction holds up to porting the I/O to say,
+SDL, later on.
+
+
+
+Thoughts on ATS:
+
+Amount of time: It rougly took the same amount of time to port to ATS
+as it did to code in C for me.  C is a much simpler language, and I
+have less experience with ATS(2), so this is not surprising.  I also
+spent more type abstract and proving things in ATS, which isn't
+strictly necessary.  Doing the project in a very OOP way in C++ might
+have taken me a similar amount of time (but, I probably won't be
+testing this any time soon).
+
+The major thing that might have helped speed up the process, which I
+understand is on the way, would be improved error messages. While I
+also did spend a bit of time greping code and looking at examples,
+that is to be expected, and it isn't much harder than looking up
+examples on cplusplus.com. For most things, there were already plenty
+of examples.
+ 

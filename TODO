@@ -1,4 +1,8 @@
-ATS: change const to linear types?
+ATS: 
+ 
+ Check to see if there is a good way to unpack and repack dependent types. 
+
+ change const to linear types?
 
 Check for winning condition
 Menu: AI or n-player
