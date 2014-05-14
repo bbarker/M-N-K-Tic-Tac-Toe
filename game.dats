@@ -59,6 +59,15 @@ local
 var board: board_type
 var board_conf: board_conf_type
 
+val () = board_conf.m := 1
+val () = board_conf.n := 1
+val () = board_conf.k := 3
+val () = board_conf.cursor := @{x = 0, y = 0}
+val () = board_conf.num_players := 1
+val () = board_conf.player_turn := 0
+
+val board_conf_r = ref_make_viewptr{board_conf_type}(view@board_conf | addr@board_conf)
+
 in (*in-of-local*)
 
 (* ****** ****** *)
@@ -93,12 +102,12 @@ val () = $extfcall(void, "fprint", GAMETEXT_OUT_BUF,
 val num_players_in = char2i(flushAndGetChar(stdin_ref))
 
 // assign reasonable defaults
-val () = board_conf.m := m_in
-val () = board_conf.n := n_in
-val () = board_conf.k := k_in
-val () = board_conf.cursor := @{x = 0, y = 0}
-val () = board_conf.num_players := num_players_in
-val () = board_conf.player_turn := 0
+(* val () = board_conf.m := m_in *)
+(* val () = board_conf.n := n_in *)
+(* val () = board_conf.k := k_in *)
+(* val () = board_conf.cursor := @{x = 0, y = 0} *)
+(* val () = board_conf.num_players := num_players_in *)
+(* val () = board_conf.player_turn := 0 *)
 
 } (* end of [gameSetup] *)
 
