@@ -43,19 +43,13 @@ var board_conf: board_conf_type?
 //
 val () = boardSetup(board_conf)
 
-//These should be redundant, but even with, doesn't work
-//val () = assertloc(board_conf.m > 2)
-//val () = assertloc(board_conf.n > 2)
-
-val mn_i = board_conf.m * board_conf.n
-
-prval mnGt0pf = m_times_n_Gt0(board_conf.m, board_conf.n, mn_i)
-
+val m = board_conf.m
+val n = board_conf.n
+val mn_i = m * n
+prval mnGt0pf = m_times_n_Gt0(m, n, mn_i)
 val mn = i2sz(mn_i)
 
-
 val (board_pf, board_pfgc | board_p) = array_ptr_alloc<board_element> (mn)
-
 val () = array_initize_elt<board_element>(
   !board_p, mn, TILE_EMPTY
 )
@@ -82,12 +76,12 @@ To mark a square, press the 'T' key (followed by ENTER).\n\n")
 val () =  fprint(GAMETEXT_OUT_BUF, 
   "How many columns (three or more)?\n>>")
 val m_in(* :board_idx *) = char2i(flushAndGetChar(stdin_ref))
-val m_in = ckastloc_gintGte (m_in, 2)
+val m_in = ckastloc_gintGt (m_in, 2)
 
 val () = fprint(GAMETEXT_OUT_BUF, 
   "How many rows (three or more)?\n>>")
 val n_in(* :board_idx *) = char2i(flushAndGetChar(stdin_ref))
-val n_in = ckastloc_gintGte (n_in, 2)
+val n_in = ckastloc_gintGt (n_in, 2)
 
 val min_m_n(* :board_idx *) = min(m_in, n_in)
 val max_m_n(* :board_idx *) = max(m_in, n_in)
@@ -96,7 +90,7 @@ val max_m_n(* :board_idx *) = max(m_in, n_in)
 val () = $extfcall (void, "fprintf", GAMETEXT_OUT_BUF,
   "How many in a row to win (from %u to %u)?\n>>", 3 (*type?*), max_m_n)
 val k_in = char2i(flushAndGetChar(stdin_ref))
-val k_in = ckastloc_gintGte (k_in, 2)
+val k_in = ckastloc_gintGt (k_in, 2)
  
 val () = $extfcall(void, "fprint", GAMETEXT_OUT_BUF, 
   "How many players (up to %d)?\n>>", PLAYER_MAX) 

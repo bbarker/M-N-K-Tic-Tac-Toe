@@ -74,9 +74,9 @@ typedef board_type =
 
 typedef board_conf_type =
 @{
-, m = board_idx
-, n = board_idx
-, k = board_idx
+, m = [m: int | m > 2] int (m)
+, n = [n: int | n > 2] int (n)
+, k = [k: int | k > 2] int (k)
 , cursor = board_point
 , num_players = int
 , player_turn = int
