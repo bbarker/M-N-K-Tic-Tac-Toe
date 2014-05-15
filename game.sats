@@ -125,4 +125,13 @@ fun flushAndGetChar(
   input_buffer:FILEref
 ): char
 
+// could probably make stronger: m_times_n_GtMin_m_n
+praxi
+m_times_n_Gt0
+  {m,n,mn:int | m > 0; n > 0; mn == m*n} 
+  (m: int (m), n: int (n), mn: int(mn)): [mn > 0] void
+  
+
+
 (* end of [game.sats] *)
+

@@ -43,9 +43,14 @@ var board_conf: board_conf_type?
 //
 val () = boardSetup(board_conf)
 
-val mn_i = board_conf.m * board_conf.n 
+//These should be redundant, but even with, doesn't work
+//val () = assertloc(board_conf.m > 2)
+//val () = assertloc(board_conf.n > 2)
 
-val () = assertloc(mn_i > 0)
+val mn_i = board_conf.m * board_conf.n
+
+prval mnGt0pf = m_times_n_Gt0(board_conf.m, board_conf.n, mn_i)
+
 val mn = i2sz(mn_i)
 
 
@@ -54,16 +59,6 @@ val (board_pf, board_pfgc | board_p) = array_ptr_alloc<board_element> (mn)
 val () = array_initize_elt<board_element>(
   !board_p, mn, TILE_EMPTY
 )
-// A: &(@[a?][n]) >> @[a][n], asz: size_t n, elt: a
-
-
-(* val () = board_conf.m := 1 *)
-(* val () = board_conf.n := 1 *)
-(* val () = board_conf.k := 3 *)
-(* val () = board_conf.cursor := @{x = 0, y = 0} *)
-(* val () = board_conf.num_players := 1 *)
-(* val () = board_conf.player_turn := 0 *)
-
 
 // Refactor: board_conf_r -> board_conf, board_conf -> board_conf_data
 val board_conf_r = ref_make_viewptr{board_conf_type}(view@board_conf | addr@board_conf)
