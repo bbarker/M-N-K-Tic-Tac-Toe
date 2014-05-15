@@ -38,13 +38,13 @@
 
 typedef board_element = char
 
-abst@ype board_abstype = ptr
-typedef board_type = board_abstype
+(* abst@ype board_abstype = ptr *)
+(* typedef board_type = board_abstype *)
 (* typedef board_type = *)
 (*   [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn) *)
 
 
-typedef board_idx = int //unsigned short int
+typedef board_idx = [n:nat] int (n) //unsigned short int
 
 (* ****** ****** *)
 
@@ -58,8 +58,29 @@ typedef board_point = board_point_abstype
 
 (* ****** ****** *)
 
-abst@ype board_conf_abstype = ptr
-typedef board_conf_type = board_conf_abstype
+(* abst@ype board_conf_abstype = ptr *)
+(* typedef board_conf_type = board_conf_abstype *)
+
+(* ****** ****** *)
+
+(* typedef board_type = *)
+(*   [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn) *)
+
+typedef board_type =
+  [mn:nat] array(board_element, mn)
+
+
+(* ****** ****** *)
+
+typedef board_conf_type =
+@{
+, m = board_idx
+, n = board_idx
+, k = board_idx
+, cursor = board_point
+, num_players = int
+, player_turn = int
+}
 
 (* ****** ****** *)
 
@@ -68,7 +89,10 @@ typedef board_conf_type = board_conf_abstype
 //
 // Initialize the game board and state.
 //
-fun gameSetup (): void
+fun boardSetup(
+//  board: &board_type? >> board_type, 
+  board_conf: &board_conf_type? >> board_conf_type
+):void
 //
 // main game loop 
 //

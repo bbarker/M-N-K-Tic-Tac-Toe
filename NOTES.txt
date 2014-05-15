@@ -24,13 +24,11 @@ SDL, later on.
 
 Thoughts on ATS:
 
-Amount of time: It rougly took the same amount of time to port to ATS
+Amount of time: It rougly took twice the  amount of time to port to ATS
 as it did to code in C for me.  C is a much simpler language, and I
 have less experience with ATS(2), so this is not surprising.  I also
 spent more type abstract and proving things in ATS, which isn't
-strictly necessary.  Doing the project in a very OOP way in C++ might
-have taken me a similar amount of time (but, I probably won't be
-testing this any time soon).
+strictly necessary. 
 
 The major thing that might have helped speed up the process, which I
 understand is on the way, would be improved error messages. While I
@@ -39,3 +37,19 @@ that is to be expected, and it isn't much harder than looking up
 examples on cplusplus.com. For most things, there were already plenty
 of examples.
  
+
+
+Type naming conventions (or encodings). Ideally, no encodings are needed,
+and the name of a type can explain itself to anyone versed in the relavent 
+kind of programming. Many ATS types have relatively difficulty meanings.
+
+Despite having done exactly this kind of thing before, it took me a while
+to figure out I needed to do this kind of conversion on an int:
+val mn = i2sz(g1ofg0_int(board_conf.m * board_conf.n))
+This first takes the product of m and n (an int) converts it to a "g1int",
+and finally converts to a size. Some of these types are relatively new and
+the conventions may still be evolving, but this kind of difficulty seems 
+to be a major barrier to writing code (though it is somewhat easier to read
+if you've doen this sort of thing at least once in ATS). 
+
+

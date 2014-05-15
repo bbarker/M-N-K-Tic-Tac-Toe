@@ -16,12 +16,6 @@ staload "./game.sats"
 
 (* ****** ****** *)
 
-typedef board_element_array =
-  [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn)
-assume board_abstype = board_element_array
-
-(* ****** ****** *)
-
 typedef direction_int_pair = 
 @{
 , dx = int
@@ -38,34 +32,40 @@ typedef board_idx_point =
 }
 assume board_point_abstype = board_idx_point
 
-(* ****** ****** *)
-
-typedef board_conf_simple =
-@{
-, m = board_idx
-, n = board_idx
-, k = board_idx
-, cursor = board_point
-, num_players = int
-, player_turn = int
-}
-assume board_conf_abstype = board_conf_simple 
-
-(* ****** ****** *)
-
 
 local
 
-var board: board_type
-var board_conf: board_conf_type
+//var board: board_type
+var board_conf: board_conf_type?
 
-val () = board_conf.m := 1
-val () = board_conf.n := 1
-val () = board_conf.k := 3
-val () = board_conf.cursor := @{x = 0, y = 0}
-val () = board_conf.num_players := 1
-val () = board_conf.player_turn := 0
+//
+// Get user input and configure board
+//
+val () = boardSetup(board_conf)
 
+val mn_i = board_conf.m * board_conf.n 
+
+val () = assertloc(mn_i > 0)
+val mn = i2sz(mn_i)
+
+
+val (board_pf, board_pfgc | board_p) = array_ptr_alloc<board_element> (mn)
+
+val () = array_initize_elt<board_element>(
+  !board_p, mn, TILE_EMPTY
+)
+// A: &(@[a?][n]) >> @[a][n], asz: size_t n, elt: a
+
+
+(* val () = board_conf.m := 1 *)
+(* val () = board_conf.n := 1 *)
+(* val () = board_conf.k := 3 *)
+(* val () = board_conf.cursor := @{x = 0, y = 0} *)
+(* val () = board_conf.num_players := 1 *)
+(* val () = board_conf.player_turn := 0 *)
+
+
+// Refactor: board_conf_r -> board_conf, board_conf -> board_conf_data
 val board_conf_r = ref_make_viewptr{board_conf_type}(view@board_conf | addr@board_conf)
 
 in (*in-of-local*)
@@ -74,7 +74,10 @@ in (*in-of-local*)
 
 
 implement
-gameSetup():void (* maybe return the initialized vars? *) = {
+boardSetup(
+  board_conf
+):void = {
+//
 val () = fprint(GAMETEXT_OUT_BUF,
 
 "Welcome to M-N-K-Tic-tac-toe\n\n
@@ -84,10 +87,12 @@ To mark a square, press the 'T' key (followed by ENTER).\n\n")
 val () =  fprint(GAMETEXT_OUT_BUF, 
   "How many columns (three or more)?\n>>")
 val m_in(* :board_idx *) = char2i(flushAndGetChar(stdin_ref))
+val m_in = ckastloc_gintGte (m_in, 2)
 
 val () = fprint(GAMETEXT_OUT_BUF, 
   "How many rows (three or more)?\n>>")
 val n_in(* :board_idx *) = char2i(flushAndGetChar(stdin_ref))
+val n_in = ckastloc_gintGte (n_in, 2)
 
 val min_m_n(* :board_idx *) = min(m_in, n_in)
 val max_m_n(* :board_idx *) = max(m_in, n_in)
@@ -96,18 +101,22 @@ val max_m_n(* :board_idx *) = max(m_in, n_in)
 val () = $extfcall (void, "fprintf", GAMETEXT_OUT_BUF,
   "How many in a row to win (from %u to %u)?\n>>", 3 (*type?*), max_m_n)
 val k_in = char2i(flushAndGetChar(stdin_ref))
+val k_in = ckastloc_gintGte (k_in, 2)
  
 val () = $extfcall(void, "fprint", GAMETEXT_OUT_BUF, 
   "How many players (up to %d)?\n>>", PLAYER_MAX) 
 val num_players_in = char2i(flushAndGetChar(stdin_ref))
 
+
+//Refactor to a fun:
 // assign reasonable defaults
-(* val () = board_conf.m := m_in *)
-(* val () = board_conf.n := n_in *)
-(* val () = board_conf.k := k_in *)
-(* val () = board_conf.cursor := @{x = 0, y = 0} *)
-(* val () = board_conf.num_players := num_players_in *)
-(* val () = board_conf.player_turn := 0 *)
+val () = board_conf.m := m_in
+val () = board_conf.n := n_in
+val () = board_conf.k := k_in
+val () = board_conf.cursor := @{x = 0, y = 0}
+val () = board_conf.num_players := num_players_in
+val () = board_conf.player_turn := 0
+//
 
 } (* end of [gameSetup] *)
 
