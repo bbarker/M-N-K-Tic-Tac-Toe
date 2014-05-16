@@ -4,6 +4,9 @@ ATS:
 
  change const to linear types?
 
+ See if ATS can prevent the error I made in C where I forgot to include the 
+ possibility of a draw (board full but no winner).
+
 Check for winning condition
 Menu: AI or n-player
 AI
