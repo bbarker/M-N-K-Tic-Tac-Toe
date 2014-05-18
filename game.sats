@@ -14,6 +14,10 @@ fun game_conf_set_m (int): void // the M of M-N-K
 fun game_conf_set_n (int): void // the N of M-N-K
 fun game_conf_set_k (int): void // the K of M-N-K
 //
+fun game_conf_get_player_id (): int
+fun game_conf_next_player_turn(): void
+
+//
 (* ****** ****** *)
 
 fun fprint_conf (FILEref): void
