@@ -11,6 +11,10 @@ ATS_PACKNAME "M_N_K_game"
 
 (* ****** ****** *)
 
+#include "share/atspre_staload.hats"
+
+(* ****** ****** *)
+
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
@@ -133,7 +137,7 @@ initize (x: &T? >> T): void = x := 0
 implement
 game_conf_get_player_id () = $PLAYER.get ()
 implement
-game_conf_next_player_turn () = 
+game_conf_next_player_turn () =
 let
  val next_player = (game_conf_get_player_id () + 1) mod NUM_PLAYERS
 in
