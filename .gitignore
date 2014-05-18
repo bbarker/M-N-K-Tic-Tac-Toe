@@ -2,5 +2,8 @@
 *.out
 *.exe
 *.gch
-!c-prototype/*.c
 *~
+#*
+.#*
+*.o
+!c-prototype/*.c
