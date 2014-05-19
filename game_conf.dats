@@ -144,6 +144,38 @@ in
   $PLAYER.set (next_player)
 end
 
+(* ****** ****** *)
+
+staload CURSOR = {
+//
+// Not recognized in this scope:
+// need to revisit board_point and typedef it in game.sats
+val m = game_conf_get_m()
+val n = game_conf_get_n()
+//
+typedef T = @(intBtwe(0, m), intBtwe(0, n))
+//
+fun
+initize (x: &T? >> T): void = x := @(0, 0)
+//
+#include "share/atspre_define.hats"
+#include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
+//
+} (* end of [staload] *)
+
+
+(* ****** ****** *)
+
+implement
+game_conf_get_player_id () = $PLAYER.get ()
+implement
+game_conf_next_player_turn () =
+let
+ val next_player = 1 + (game_conf_get_player_id () mod NUM_PLAYERS)
+in
+  $PLAYER.set (next_player)
+end
+
 
 (* ****** ****** *)
 
