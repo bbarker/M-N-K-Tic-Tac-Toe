@@ -36,7 +36,7 @@ fprint_winning_message (out, player_id) =
 let
   val () = fprint_the_board (out)
   val () = fprint_newline (out)
-  val () = fprintln! (out, "Player", player_id, " is the winner!")
+  val () = fprintln! (out, "Player ", player_id, " is the winner!")
 in
   // nothing
 end
@@ -48,7 +48,7 @@ fun the_board_mark_at
   (player_id: int, i: int, j: int): bool
 extern
 fun the_board_check_at
-  (player_id: int, i: int, j: int): bool
+  (i: int, j: int): bool
 //
 (* ****** ****** *)
 
@@ -64,7 +64,7 @@ end // end of [the_board_mark_at]
 
 implement
 the_board_check_at
-  (player_id, i, j) = let
+  (i, j) = let
 //
 val board = game_conf_get_board ()
 //
@@ -98,25 +98,19 @@ end // end of [player_move]
 implement
 game_mainloop () = let
 //
-val out = stdout_ref
-val () = fprintln! (out, "M-N-K-game starts")
-//
-
-//  **************
-
 val inp = stdin_ref
-val out = stdout_ref
+val out = GAMETEXT_OUT_BUF
 //
 val () = (
   fprint_the_board (out); fprint_newline (out)
 ) (* end of [val] *)
 //
 val player_id = game_conf_get_player_id ()
-val () = $extfcall(void, "fprintf", "Player%d's turn: ", player_id)
+val () = $extfcall(void, "fprintf", out, "Player %d's turn: ", player_id)
 val () = fileref_flush (out)
 val (i, j) = player_move ()
 val error = the_board_mark_at (player_id, i, j)
-val isWinner = the_board_check_at (player_id, i, j)
+val isWinner = the_board_check_at (i, j)
 //
 in if isWinner 
 then 

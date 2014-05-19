@@ -29,7 +29,9 @@ main0 () = () where
 //
 val () = game_initize ()
 //
-val () = fprint_conf (stdout_ref)
+val () = fprint_conf (GAMETEXT_OUT_BUF)
+//
+val () = fprintln! (GAMETEXT_OUT_BUF, "M-N-K-game starts")
 //
 val () = game_mainloop ()
 //

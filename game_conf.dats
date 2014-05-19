@@ -124,7 +124,7 @@ staload PLAYER = {
 typedef T = int
 //
 fun
-initize (x: &T? >> T): void = x := 0
+initize (x: &T? >> T): void = x := 1
 //
 #include "share/atspre_define.hats"
 #include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
@@ -139,7 +139,7 @@ game_conf_get_player_id () = $PLAYER.get ()
 implement
 game_conf_next_player_turn () =
 let
- val next_player = (game_conf_get_player_id () + 1) mod NUM_PLAYERS
+ val next_player = 1 + (game_conf_get_player_id () mod NUM_PLAYERS)
 in
   $PLAYER.set (next_player)
 end
