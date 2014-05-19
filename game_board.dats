@@ -17,10 +17,8 @@ staload "./game.sats"
 
 (* ****** ****** *)
 
-assume
-board_type = mtrxszref (int)
+#include "./game_board_types.hats"
 
-(* ****** ****** *)
 //
 implement
 board_make (m, n) =

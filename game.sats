@@ -2,17 +2,21 @@
 ** The M-N-K-game
 *)
 
-(* ****** ****** *)
+#include "./game_types.hats"
+
 //
 // Game config-info
 //
 fun game_conf_get_m (): int // the M of M-N-K
 fun game_conf_get_n (): int // the N of M-N-K
 fun game_conf_get_k (): int // the K of M-N-K
+fun game_conf_get_cursor (): int // current board location
+
 //
 fun game_conf_set_m (int): void // the M of M-N-K
 fun game_conf_set_n (int): void // the N of M-N-K
 fun game_conf_set_k (int): void // the K of M-N-K
+fun game_conf_set_cursor (board_point): void // current board location
 //
 fun game_conf_get_player_id (): int
 fun game_conf_next_player_turn(): void
@@ -21,11 +25,6 @@ fun game_conf_next_player_turn(): void
 (* ****** ****** *)
 
 fun fprint_conf (FILEref): void
-
-(* ****** ****** *)
-
-abstype board_type = ptr
-typedef board = board_type
 
 (* ****** ****** *)
 
@@ -133,12 +132,6 @@ typedef board_idx = [n:nat] int (n) //unsigned short int
 abst@ype direction_abstype = ptr
 typedef direction = direction_abstype
 
-(* ****** ****** *)
-
-abst@ype board_point_abstype = ptr
-typedef board_point = board_point_abstype
-
-(* ****** ****** *)
 
 (* abst@ype board_conf_abstype = ptr *)
 (* typedef board_conf_type = board_conf_abstype *)
@@ -148,72 +141,72 @@ typedef board_point = board_point_abstype
 (* typedef board_type = *)
 (*   [mn,m,n:nat | m > 2 && n > 2 && mn == m*n] array(board_element, mn) *)
 
-typedef board_type =
-  [mn:nat] array(board_element, mn)
+(* typedef board_type = *)
+(*   [mn:nat] array(board_element, mn) *)
 
 
 (* ****** ****** *)
 
-typedef board_conf_type =
-@{
-, m = [m: int | m > 2] int (m)
-, n = [n: int | n > 2] int (n)
-, k = [k: int | k > 2] int (k)
-, cursor = board_point
-, num_players = int
-, player_turn = int
-}
+(* typedef board_conf_type = *)
+(* @{ *)
+(* , m = [m: int | m > 2] int (m) *)
+(* , n = [n: int | n > 2] int (n) *)
+(* , k = [k: int | k > 2] int (k) *)
+(* , cursor = board_point *)
+(* , num_players = int *)
+(* , player_turn = int *)
+(* } *)
 
 (* ****** ****** *)
 
 
-(* ** Game functions ** *)
-//
-// Initialize the game board and state.
-//
-fun boardSetup(
-//  board: &board_type? >> board_type, 
-  board_conf: &board_conf_type? >> board_conf_type
-):void
-//
-// main game loop 
-//
-fun gameLoop {mn,m,n:nat} (
-  game_state:int, board_conf:board_conf_type, board:board_type 
-): int
-//
-// Print current board
-//
-fun printBoard {mn:nat} (
-  board_conf:board_conf_type, board:board_type
-):void
-//
-// Check to see if there is a winner.
-//
-fun isWinner {mn:nat} (
-  board_conf:board_conf_type, board:board_type
-):bool
+(* (\* ** Game functions ** *\) *)
+(* // *)
+(* // Initialize the game board and state. *)
+(* // *)
+(* fun boardSetup( *)
+(* //  board: &board_type? >> board_type,  *)
+(*   board_conf: &board_conf_type? >> board_conf_type *)
+(* ):void *)
+(* // *)
+(* // main game loop  *)
+(* // *)
+(* fun gameLoop {mn,m,n:nat} ( *)
+(*   game_state:int, board_conf:board_conf_type, board:board_type  *)
+(* ): int *)
+(* // *)
+(* // Print current board *)
+(* // *)
+(* fun printBoard {mn:nat} ( *)
+(*   board_conf:board_conf_type, board:board_type *)
+(* ):void *)
+(* // *)
+(* // Check to see if there is a winner. *)
+(* // *)
+(* fun isWinner {mn:nat} ( *)
+(*   board_conf:board_conf_type, board:board_type *)
+(* ):bool *)
 
 
 
 
 
-(* ** Utility functions ** *)
-//
-// Input buffer flush and get character using 
-// only C-standard functions.
-//
-fun flushAndGetChar(
-  input_buffer:FILEref
-): char
+(* (\* ** Utility functions ** *\) *)
+(* // *)
+(* // Input buffer flush and get character using  *)
+(* // only C-standard functions. *)
+(* // *)
+(* fun flushAndGetChar( *)
+(*   input_buffer:FILEref *)
+(* ): char *)
 
-// could probably make stronger: m_times_n_GtMin_m_n
-praxi
-m_times_n_Gt0
-  {m,n,mn:int | m > 0; n > 0; mn == m*n} 
-  (m: int (m), n: int (n), mn: int(mn)): [mn > 0] void
+(* // could probably make stronger: m_times_n_GtMin_m_n *)
+(* praxi *)
+(* m_times_n_Gt0 *)
+(*   {m,n,mn:int | m > 0; n > 0; mn == m*n}  *)
+(*   (m: int (m), n: int (n), mn: int(mn)): [mn > 0] void *)
   
 
-//***********************************************************************
+(* //*********************************************************************** *)
 
 

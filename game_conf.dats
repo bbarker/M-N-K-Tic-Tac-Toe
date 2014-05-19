@@ -148,15 +148,14 @@ end
 
 staload CURSOR = {
 //
-// Not recognized in this scope:
-// need to revisit board_point and typedef it in game.sats
-val m = game_conf_get_m()
-val n = game_conf_get_n()
+#include "./game_types.hats"
+#include "./game_board_types.hats"
 //
-typedef T = @(intBtwe(0, m), intBtwe(0, n))
+typedef T = board_point
 //
+val test: board_point = '(0, 0)
 fun
-initize (x: &T? >> T): void = x := @(0, 0)
+initize (x: &T? >> T): void = x := test
 //
 #include "share/atspre_define.hats"
 #include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
@@ -167,15 +166,9 @@ initize (x: &T? >> T): void = x := @(0, 0)
 (* ****** ****** *)
 
 implement
-game_conf_get_player_id () = $PLAYER.get ()
+game_conf_get_cursor () = $PLAYER.get ()
 implement
-game_conf_next_player_turn () =
-let
- val next_player = 1 + (game_conf_get_player_id () mod NUM_PLAYERS)
-in
-  $PLAYER.set (next_player)
-end
-
+game_conf_set_cursor (cursor) = $PLAYER.set (cursor)
 
 (* ****** ****** *)
 
