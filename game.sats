@@ -10,7 +10,7 @@
 fun game_conf_get_m (): int // the M of M-N-K
 fun game_conf_get_n (): int // the N of M-N-K
 fun game_conf_get_k (): int // the K of M-N-K
-fun game_conf_get_cursor (): int // current board location
+fun game_conf_get_cursor (): board_point // current board location
 
 //
 fun game_conf_set_m (int): void // the M of M-N-K

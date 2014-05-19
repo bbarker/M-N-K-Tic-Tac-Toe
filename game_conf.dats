@@ -150,12 +150,17 @@ staload CURSOR = {
 //
 #include "./game_types.hats"
 #include "./game_board_types.hats"
+staload UN = "prelude/SATS/unsafe.sats"
 //
-typedef T = board_point
+//typedef T = board_point
+typedef T = ptr
 //
-val test: board_point = '(0, 0)
+// may need praxi here
+val my_zero = g1ofg0(0) 
+//val test: board_point = '(0, 0)
+val test: board_point = '(my_zero, my_zero)
 fun
-initize (x: &T? >> T): void = x := test
+initize (x: &T? >> _): void = x := $UN.cast{ptr}(test)
 //
 #include "share/atspre_define.hats"
 #include "{$LIBATSHWXI}/globals/HATS/globvar.hats"
@@ -166,9 +171,9 @@ initize (x: &T? >> T): void = x := test
 (* ****** ****** *)
 
 implement
-game_conf_get_cursor () = $PLAYER.get ()
+game_conf_get_cursor () = $UN.cast{board_point}($CURSOR.get ())
 implement
-game_conf_set_cursor (cursor) = $PLAYER.set (cursor)
+game_conf_set_cursor (cursor) = $CURSOR.set ($UN.cast{ptr}(cursor))
 
 (* ****** ****** *)
 
