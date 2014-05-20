@@ -155,10 +155,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 //typedef T = board_point
 typedef T = ptr
 //
-// may need praxi here
 val my_zero = g1ofg0(0) 
-//val test: board_point = '(0, 0)
-val test: board_point = '(my_zero, my_zero)
+//
+// this won't work if we annotate the lvalue or rvalue
+//
+val test = $UN.cast{board_point}('(my_zero, my_zero))
 fun
 initize (x: &T? >> _): void = x := $UN.cast{ptr}(test)
 //
