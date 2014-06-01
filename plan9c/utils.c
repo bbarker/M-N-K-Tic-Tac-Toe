@@ -32,7 +32,6 @@ char inputFlush (FILE *input_buffer)
 
 char pauseAndGetChar(FILE *output_buffer, FILE* input_buffer) 
 { 
-  //printf ( "Press [Enter] to continue . . ." );
   fflush (output_buffer);
   return getc(input_buffer);
 } 
