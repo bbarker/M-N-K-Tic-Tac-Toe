@@ -7,3 +7,4 @@
 .#*
 *.o
 !c-prototype/*.c
+!plan9c/*.c
