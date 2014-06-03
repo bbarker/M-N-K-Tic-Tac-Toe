@@ -1,0 +1,7 @@
+*  Investigate plan9 header strucutre; supposedly easier to use
+   #includes in plna9.
+∗  Probably better to use typedefs on ints where possible, e.g., for 
+   file descriptors and booleans. Can do this later though.
+*  Get familiar with sed or awk for doing search and replace.
+
+

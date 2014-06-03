@@ -1,5 +1,4 @@
 
-#include <stdio.h>
 #include "game.h"
 
 void printBoard(board_conf_type board_conf, board_type board) {

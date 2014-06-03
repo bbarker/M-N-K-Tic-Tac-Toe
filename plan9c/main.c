@@ -1,23 +1,22 @@
 /* main.c - game startup for MNK-Tic-tac-toe */
 
-#include <stdio.h>
 #include "game.h"
 
 
 int main(int argc, char **argv) {
 
   // print title
-  fprint(GAMETEXT_OUT_BUF, "Welcome to M-N-K-Tic-tac-toe\n\n" 
+  fprintf(GAMETEXT_OUT_BUF, "Welcome to M-N-K-Tic-tac-toe\n\n" 
     "Please use the W-A-S-D keys (followed by ENTER) to move the cursor.\n"
     "To mark a square, press the 'T' key (followed by ENTER).\n\n");
   
 
   //Ask user for game specification.
-  fprint(GAMETEXT_OUT_BUF, "How many columns (three or more)?\n>>");
+  fprintf(GAMETEXT_OUT_BUF, "How many columns (three or more)?\n>>");
   board_idx m_in;
   scanf("%10hud", &m_in);
   //
-  fprint(GAMETEXT_OUT_BUF, "How many rows (three or more)?\n>>");
+  fprintf(GAMETEXT_OUT_BUF, "How many rows (three or more)?\n>>");
   board_idx n_in;
   scanf("%10hud", &n_in);
 
@@ -45,11 +44,11 @@ int main(int argc, char **argv) {
 
   // Create a blank board
   board_type board = NULL;
-  const size_t board_bytes = 
+  const ulong board_bytes = 
     board_conf.m * board_conf.n * sizeof(board_element);
   board = (board_type) malloc(board_bytes);
   if (board == NULL) {
-    fprint(stderr, "Unable to allocate memory for board!");
+    fprintf(stderr, "Unable to allocate memory for board!");
     return -1;
   }
 

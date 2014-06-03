@@ -1,0 +1,5 @@
+ls .*  ||   8c *.c *.h    ||  8l *.8  ||   sed 's/stdout/STDOUT/g'
+hg add . || hg status || hg commit -m ''
+hg push 
+
+du -a . | awk '{print $2}' | xargs grep nearbyint

@@ -1,5 +1,4 @@
 
-#include <stdio.h>
 #include "game.h"
 
 /* void inputFlush (FILE *input_buffer) */

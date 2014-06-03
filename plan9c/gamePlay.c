@@ -1,27 +1,26 @@
 
-#include <stdio.h>
 #include "game.h"
 
-#define PI 3.14159265
+#define ROUND(x) (int)(x+0.5)
 
 /* ** ** local function declarations ** ** */
 int countInDirection(board_conf_type board_conf, board_type board, 
   direction scoring_direction);
-bool isInBounds(board_conf_type board_conf, int x, int y);
+int isInBounds(board_conf_type board_conf, int x, int y);
 /* ** end local function declarations ** */
 
 
 
 
-bool isWinner(board_conf_type board_conf, board_type board) {
+int isWinner(board_conf_type board_conf, board_type board) {
 unsigned short lineSums[NUM_SCORE_LINES] = {1, 1, 1, 1}; 
 //Iterate over all directions:
 int line;
 direction scoring_direction;
 for (int i = 0; i < 8; i++) {
   line = i % NUM_SCORE_LINES;
-  scoring_direction.dx = (int)      nearbyint(cos(i*PI / 4.0));
-  scoring_direction.dy = (int) -1 * nearbyint(sin(i*PI / 4.0));
+  scoring_direction.dx = (int)      ROUND(cos(i*PI / 4.0));
+  scoring_direction.dy = (int) -1 * ROUND(sin(i*PI / 4.0));
   lineSums[line] += countInDirection(board_conf, board, scoring_direction);
 }
 //
@@ -32,9 +31,9 @@ for (unsigned short i = 0; i < NUM_SCORE_LINES; ++i) {
 } // end of [for]
 //
 if (lineSumMax >= board_conf.k) {
-  return true;
+  return 1;
 } else {
-  return false;
+  return 0;
 }
 } // end of [checkWinner]
 
@@ -69,12 +68,12 @@ return lineSum;
 } // end of [countInDirection]
 
 
-bool isInBounds(board_conf_type board_conf, int x, int y) {
+int isInBounds(board_conf_type board_conf, int x, int y) {
 if (x < board_conf.m && y < board_conf.n && 
     x >= 0           && y >= 0)
 {
-  return true;
+  return 1;
 } else {
-  return false;
+  return 0;
 } // end of [if]
 } // end of [isInBounds]

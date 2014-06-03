@@ -1,15 +1,14 @@
 /* game.c - main game loop for MNK-Tic-tac-toe */
 
-#include <stdio.h>
 #include "game.h"
 
-bool IsMessage(void) {
-  bool message_waiting = 0;
+int IsMessage(void) {
+  int message_waiting = 0;
   // check messages here
   if (message_waiting) {
-    return true;
+    return 1;
   } else {
-    return false;
+    return 0;
   }
 }
 
@@ -34,7 +33,7 @@ if (IsMessage()) {
   ProcessMessage(message);
 }
 
-size_t board_bytes;
+ulong board_bytes;
 char last_key;
 switch(game_state) {
 case INIT:
@@ -42,8 +41,8 @@ case INIT:
   memset(board, (int)(unsigned char) TILE_EMPTY, board_bytes);  
 
   board_point cursor_init =  {
-   .x = ceilf(((float) (board_conf.m - 1)) / 2.0), 
-   .y = ceilf(((float) (board_conf.n - 1)) / 2.0)
+   .x = ceil(((double) (board_conf.m - 1)) / 2.0), 
+   .y = ceil(((double) (board_conf.n - 1)) / 2.0)
   };
   board_conf.cursor = cursor_init;
 
@@ -53,21 +52,21 @@ case INTRO:
 
   return gameLoop(game_state, board_conf, board);
 case MENU:
-  fprint(GAMETEXT_OUT_BUF, "Play again? [y/n]>>");
+  fprintf(GAMETEXT_OUT_BUF, "Play again? [y/n]>>");
   last_key = tolower(flushAndGetChar(stdin));
   if (last_key == 'y') {
     game_state = INIT;
   } else if (last_key == 'n') {
     game_state = SHUTDOWN;
   } else {
-    fprint(GAMETEXT_OUT_BUF, "Invalid choice, please try again.");
+    fprintf(GAMETEXT_OUT_BUF, "Invalid choice, please try again.");
   }
   
   return gameLoop(game_state, board_conf, board);
 case GAME:
   printBoard(board_conf, board);
   //
-  fprint(GAMETEXT_OUT_BUF, "Player %c's turn>>", 
+  fprintf(GAMETEXT_OUT_BUF, "Player %c's turn>>", 
     PLAYER_SYMBOLS[board_conf.player_turn]); 
   last_key = tolower(flushAndGetChar(KEY_BUFFER));
   switch(last_key) {
@@ -98,7 +97,7 @@ case GAME:
       board_conf.cursor.x = -1;
       board_conf.cursor.y = -1;
       printBoard(board_conf, board);
-      fprint(GAMETEXT_OUT_BUF, "Player %c wins!!!\n\n", 
+      fprintf(GAMETEXT_OUT_BUF, "Player %c wins!!!\n\n", 
         PLAYER_SYMBOLS[board_conf.player_turn]);
       game_state = MENU;
     } // end of [if (isWinner//]
@@ -106,14 +105,14 @@ case GAME:
       (board_conf.player_turn + 1) % board_conf.num_players;
     break;
   default:
-    fprint(GAMETEXT_OUT_BUF, "Erroneous input: %c\n", last_key);
+    fprintf(GAMETEXT_OUT_BUF, "Erroneous input: %c\n", last_key);
   } // end of [switch(last_key)]
   return gameLoop(game_state, board_conf, board);
 case SHUTDOWN:
   free(board);  
   return 0;
 default:
-  fprint(stderr, "Invalid game state!");
+  fprintf(stderr, "Invalid game state!");
   return UNKNOWN_ERROR;
 } // End of [switch(game_state)]
 } // End of [gameLoop]

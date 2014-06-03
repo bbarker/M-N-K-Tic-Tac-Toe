@@ -3,12 +3,11 @@
 #ifndef __MNK_TIC_TAC_TOE__
 #define __MNK_TIC_TAC_TOE__
 
+#include <u.h>
+#include <libc.h>
+
 #include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
-#include <math.h>
 
 #define INIT     0
 #define INTRO    1
@@ -81,7 +80,7 @@ void printBoard(board_conf_type, board_type);
 //
 // Check to see if there is a winner.
 //
-bool isWinner(board_conf_type board_conf, board_type board);
+int isWinner(board_conf_type board_conf, board_type board);
 
 /* ** Utility functions ** */
 //
